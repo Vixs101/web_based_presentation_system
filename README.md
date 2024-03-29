@@ -1,8 +1,10 @@
-# React + Vite
+# Craft School
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a web based presentation system that helps provides videos using youtube's api to learn specific crafts which include Cream making, Soap making, Perfumes, baking and chemicals such as detergents and disinfectants.
 
-Currently, two official plugins are available:
+## Tech Stack
+* Vite + Reactjs
+* react router and react-router-dom
+* TailwindCss
+* Firebase
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
