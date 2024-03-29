@@ -49,9 +49,9 @@ function LoginPage() {
           </div>
 
           {loginType == "login" ? (
-            <button>Login</button>
+            <button className="rounded-lg text-white font-bold p-2 bg-blue-300">Login</button>
           ) : (
-            <button>Sign up</button>
+            <button className="rounded-lg text-white font-bold p-2 bg-blue-300">Sign up</button>
           )}
         </form>
       </section>
