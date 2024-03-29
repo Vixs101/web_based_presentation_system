@@ -12,16 +12,16 @@ function LoginPage() {
         <p>Login or create an account to continue</p>
         <div className="flex gap-3">
           <button
-            className={`rounded-lg text-white font-bold p-2 bg-blue-300 ${
-              loginType == "login" ? "bg-slate-400" : ""
+            className={`rounded-lg text-white font-bold p-2 bg-blue-500 ${
+              loginType == "login" ? "bg-slate-600" : ""
             }`}
             onClick={() => setLoginType("login")}
           >
             Login
           </button>
           <button
-            className={`rounded-lg text-white font-bold p-2 bg-blue-300 ${
-              loginType == "signup" ? "bg-slate-400" : ""
+            className={`rounded-lg text-white font-bold p-2 bg-blue-500 ${
+              loginType == "signup" ? "bg-slate-600" : ""
             }`}
             onClick={() => setLoginType("signup")}
           >
@@ -29,31 +29,34 @@ function LoginPage() {
           </button>
         </div>
         <form className="w-3/4">
-          <div className="flex flex-col items-start">
-            <label htmlFor="email">Email *</label>
+          <div className="flex flex-col gap-2 items-start mb-5">
+            <label htmlFor="email" className="font-semibold">Email *</label>
             <input
               type="email"
               name="email"
               placeholder="Enter your email"
-              className=""
+              className="outline-none border-2 p-2 border-blue-500 rounded-xl w-full"
             />
           </div>
 
-          <div className="flex flex-col items-start">
-            <label htmlFor="password">Password *</label>
+          <div className="flex flex-col gap-2 items-start mb-5">
+            <label htmlFor="password" className="font-semibold">Password *</label>
             <input
               type="password"
               name="password"
               placeholder="Enter your password"
+              className="outline-none border-2 p-2 border-blue-500 rounded-xl w-full"
             />
           </div>
 
           {loginType == "login" ? (
-            <button className="rounded-lg text-white font-bold p-2 bg-blue-300">Login</button>
+            <button className="rounded-3xl text-white font-bold p-2 bg-blue-500 md:w-3/12">Login</button>
           ) : (
-            <button className="rounded-lg text-white font-bold p-2 bg-blue-300">Sign up</button>
+            <button className="rounded-3xl text-white font-bold p-2 bg-blue-500 md:w-3/12">Sign up</button>
           )}
         </form>
+        
+        <p className="underline cursor-pointer italic text-red-400 font-semibold">Forgot Password</p>
       </section>
     </div>
   );
