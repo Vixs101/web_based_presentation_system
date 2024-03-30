@@ -5,7 +5,7 @@ function LoginPage() {
 
   return (
     <div className="flex items-center justify-center h-full w-full bg-blue-300">
-      <section className="flex flex-col gap-3 height w-11/12 md:w-1/2 p-5 bg-white rounded-2xl text-center items-center">
+      <section className="flex flex-col gap-3 height w-11/12 md:w-1/2 p-5 bg-white rounded-3xl text-center items-center">
         <h1 className="text-2xl md:text-4xl font-bold text-gray-800">
           Welcome to Craft School
         </h1>
@@ -35,7 +35,7 @@ function LoginPage() {
               type="email"
               name="email"
               placeholder="Enter your email"
-              className="outline-none border-2 p-2 border-blue-500 rounded-xl w-full"
+              className="outline-none border p-2 border-blue-500 rounded-xl w-full"
             />
           </div>
 
@@ -45,7 +45,7 @@ function LoginPage() {
               type="password"
               name="password"
               placeholder="Enter your password"
-              className="outline-none border-2 p-2 border-blue-500 rounded-xl w-full"
+              className="outline-none border p-2 border-blue-500 rounded-xl w-full"
             />
           </div>
 
@@ -56,7 +56,7 @@ function LoginPage() {
           )}
         </form>
         
-        <p className="underline cursor-pointer italic text-red-400 font-semibold">Forgot Password</p>
+        <p className="underline cursor-pointer italic text-red-600 font-semibold">Forgot Password</p>
       </section>
     </div>
   );
