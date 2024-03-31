@@ -1,12 +1,27 @@
-import React from 'react';
-import Sidebar from '../components/Sidebar';
+import React from "react";
 
 function Home() {
   return (
     <>
-    <Sidebar/>
+      <div>
+        dokknononnwonondoijkldasdasdnsnonoisnfwooiweoioijoiwjeiowjgoioijio
+      </div>
+      <div className="w-full h-40 bg-slate-500"></div>
+      <div className='w-full h-40 bg-slate-500'></div>
+      <div className='w-full h-40 bg-slate-500'></div>
+      <div className='w-full h-40 bg-slate-500'></div>
+      <div className='w-full h-40 bg-slate-500'></div>
+      <div className='w-full h-40 bg-slate-500'></div>
+      <div className='w-full h-40 bg-slate-500'></div>
+      <div className='w-full h-40 bg-slate-500'></div>
+      <div className='w-full h-40 bg-slate-500'></div>
+      <div className='w-full h-40 bg-slate-500'></div>
+      <div className='w-full h-40 bg-slate-500'></div>
+      <div className='w-full h-40 bg-slate-500'></div>
+      <div className='w-full h-40 bg-slate-500'></div>
+      <div className='w-full h-40 bg-slate-500'></div>
     </>
-  )
+  );
 }
 
-export default Home
+export default Home;

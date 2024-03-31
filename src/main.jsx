@@ -1,32 +1,33 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+  RouterProvider,
+} from "react-router-dom";
 import "./index.css";
 import LoginPage from "./pages/LoginPage";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import UploadVideos from "./pages/UploadVideos";
-import Sidebar from "./components/Sidebar";
+import ProtectedRoute from "./components/ProtectedRoute";
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <LoginPage />,
-  },
-  {
-    path: "/home",
-    element: <Home />,
-  },
-  {
-    path:'/profile',
-    element:<Profile/>
-  },
-  {
-    path: '/upload_videos',
-    element: <UploadVideos/>
-  },
-]);
-
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <>
+      <Route path="/login" element={<LoginPage />} />
+      <Route 
+        path="/"
+        element={<ProtectedRoute />}
+      >
+        <Route index element={<Home />} />
+        <Route path="profile" element={<Profile />} />
+        <Route path="upload_videos" element={<UploadVideos />} />
+      </Route>
+    </>
+  )
+);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>

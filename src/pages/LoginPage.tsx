@@ -30,7 +30,7 @@ function LoginPage() {
         </div>
         <form className="w-3/4">
           <div className="flex flex-col gap-2 items-start mb-5">
-            <label htmlFor="email" className="font-semibold">Email *</label>
+            <label htmlFor="email" className="font-semibold text-gray-800">Email *</label>
             <input
               type="email"
               name="email"
@@ -40,7 +40,7 @@ function LoginPage() {
           </div>
 
           <div className="flex flex-col gap-2 items-start mb-5">
-            <label htmlFor="password" className="font-semibold">Password *</label>
+            <label htmlFor="password" className="font-semibold text-gray-800">Password *</label>
             <input
               type="password"
               name="password"
