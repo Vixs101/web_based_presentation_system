@@ -2,6 +2,7 @@ import React from "react";
 import { PropsWithChildren, useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import Sidebar from "./Sidebar";
+import Navbar from "./Navbar";
 type ProtectedRouteProps = PropsWithChildren;
 
 export default function ProtectedRoute({ children }: ProtectedRouteProps) {
@@ -19,8 +20,9 @@ export default function ProtectedRoute({ children }: ProtectedRouteProps) {
 
   return (
     <div className="flex h-screen ">
+      <Navbar />
       <Sidebar />
-      <div className="flex-grow overflow-auto ml">
+      <div className="flex-grow overflow-auto md:ml-1/5 lg:ml-1/4">
         <Outlet />
       </div>
     </div>
