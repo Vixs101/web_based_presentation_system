@@ -4,7 +4,7 @@ function LoginPage() {
   const [loginType, setLoginType] = useState("login");
 
   return (
-    <div className="flex items-center justify-center h-full w-full bg-blue-300">
+    <div className="flex items-center justify-center h-full w-full bg-[#deb887]">
       <section className="flex flex-col gap-3 height w-11/12 md:w-1/2 p-5 bg-white rounded-3xl text-center items-center">
         <h1 className="text-2xl md:text-4xl font-bold text-gray-800">
           Welcome to Craft School
@@ -12,16 +12,16 @@ function LoginPage() {
         <p>Login or create an account to continue</p>
         <div className="flex gap-3">
           <button
-            className={`rounded-lg text-white font-bold p-2 bg-blue-500 ${
-              loginType == "login" ? "bg-slate-600" : ""
+            className={`rounded-lg text-gray-800  font-bold p-2  ${
+              loginType == "login" ? "bg-slate-600 text-white" : "bg-[#deb887]"
             }`}
             onClick={() => setLoginType("login")}
           >
             Login
           </button>
           <button
-            className={`rounded-lg text-white font-bold p-2 bg-blue-500 ${
-              loginType == "signup" ? "bg-slate-600" : ""
+            className={`rounded-lg text-gray-800 font-bold p-2  ${
+              loginType == "signup" ? "bg-slate-600 text-white" : "bg-[#deb887]"
             }`}
             onClick={() => setLoginType("signup")}
           >
@@ -35,7 +35,7 @@ function LoginPage() {
               type="email"
               name="email"
               placeholder="Enter your email"
-              className="outline-none border p-2 border-blue-500 rounded-xl w-full"
+              className="outline-none border p-2 border-[#deb887] rounded-xl w-full"
             />
           </div>
 
@@ -45,14 +45,14 @@ function LoginPage() {
               type="password"
               name="password"
               placeholder="Enter your password"
-              className="outline-none border p-2 border-blue-500 rounded-xl w-full"
+              className="outline-none border p-2 border-[#deb887] rounded-xl w-full"
             />
           </div>
 
           {loginType == "login" ? (
-            <button className="rounded-3xl text-white font-bold p-2 bg-blue-500 md:w-3/12">Login</button>
+            <button className="rounded-3xl font-bold p-2 bg-[#deb887] md:w-3/12">Login</button>
           ) : (
-            <button className="rounded-3xl text-white font-bold p-2 bg-blue-500 md:w-3/12">Sign up</button>
+            <button className="rounded-3xl font-bold p-2 bg-[#deb887] md:w-3/12">Sign up</button>
           )}
         </form>
         
