@@ -4,11 +4,12 @@ import tailwindcss from "tailwindcss";
 
 // https://vitejs.dev/config/
 
-export default defineConfig({
-  plugins: [react()],
-  css: {
-    postcss: {
-      plugins: [tailwindcss()],
+export default defineConfig(() => {
+
+  return {
+    plugins: [react()],
+    css: {
+      postcss:[tailwindcss(),]
     },
-  },
+  }
 })

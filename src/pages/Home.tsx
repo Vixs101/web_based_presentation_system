@@ -9,7 +9,6 @@ function Home() {
         <h1 className="text-center text-2xl md:text-4xl font-bold text-gray-800">
           Welcome to Craft School <span className="text-[#deb887]">!!</span>
         </h1>
-     
         <VideoComponent/>
       </section>
     </>

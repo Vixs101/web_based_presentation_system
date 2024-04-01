@@ -1,37 +1,61 @@
 import React, { useState, useEffect } from "react";
-import Axios from "axios";
-import { BASE_URL } from "../config";
+import axios from "axios";
 import SearchBar from "./SearchBar";
+declare global {
+  interface ImportMeta {
+    env: {
+      [key: string]: string;
+    };
+  }
+}
 
 function VideoComponent() {
-  const [videos, setVideos] = useState([]);
+  const [videos, setVideos] = useState<any[]>([]);
+  const [error, setError] = useState<Error | null>(null);
+
+  const apiKey = import.meta.env.VITE_APP_API_KEY;
 
   // function to fetch videos
-  const fetchVideos = async (searchTerm) => {
+  const fetchVideos = async () => {
+    setError(null);
+
     try {
+      const response = await axios.get(
+        `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=12&q=cats&key=${apiKey}`
+      );
+
+      setVideos(response.data.items);
     } catch (error) {
+      setError(error);
     }
   };
 
+  useEffect(() => {
+    fetchVideos();
+  }, []);
+
   // function to handle search
-  const handleSearch = (searchTerm) => {}
+  const handleSearch = (searchTerm) => {};
 
   return (
     <div className="flex flex-col gap-5">
-      <SearchBar onSearch={handleSearch}/>
+      <SearchBar onSearch={handleSearch} />
 
-      <div>
-        {videos.map((video:any) => (
-          <div key={video?.id?.videoId}>
+      <div className="self-center grid grid-cols-1 md:grid-cols-3 gap-7 md:gap-10 max-w-full">
+        {videos.map((video) => (
+          <div
+            key={video?.id?.videoId}
+            className="flex flex-col gap-3 border bg-[#deb887] rounded-xl text-gray-800"
+          >
             <iframe
               src={`https://www.youtube.com/embed/${video?.id?.videoId}`}
-              width={560}
-              height={315}
               allowFullScreen
+              className="w-full rounded-t-xl"
             ></iframe>
-            <h2>{video?.snippet?.title}</h2>
-            <p>Channel: {video?.snippet?.channelTitle}</p>
-            <p>Views: {video?.snippet?.viewCount}</p>
+            <div className="ml-3 mb-3">
+              <h2 className="text-base font-extrabold">Title: {video?.snippet?.title}</h2>
+              <p className="font-bold">Channel: {video?.snippet?.channelTitle}</p>
+            </div>
           </div>
         ))}
       </div>
@@ -39,4 +63,4 @@ function VideoComponent() {
   );
 }
 
-export default VideoComponent
+export default VideoComponent;
