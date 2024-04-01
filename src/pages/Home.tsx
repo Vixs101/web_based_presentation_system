@@ -5,9 +5,9 @@ function Home() {
     <>
       <section className="flex flex-col p-4 gap-3 bg-gray-50">
         <h1 className="text-center text-2xl md:text-4xl font-bold text-gray-800">
-          Welcome to Craft School!
+          Welcome to Craft School <span className="text-[#deb887]">!!</span>
         </h1>
-        <div className="flex self-center border-2 p-2 border-[#deb887] rounded-xl w-1/2">
+        <div className="flex self-center border-2 p-2 px-3 border-[#deb887] rounded-3xl w-3/4 md:w-1/2 ">
           <input
             type="text"
             name="search"
@@ -26,6 +26,27 @@ function Home() {
               clipRule="evenodd"
             />
           </svg>
+        </div>
+        <div className="flex items-center gap-3 justify-center flex-wrap">
+          <button className="rounded-xl text-gray-800 font-bold p-2 bg-[#deb887] hover:bg-[#efcfa4] self-center">
+            Perfume Making
+          </button>
+
+          <button className="rounded-xl text-gray-800 font-bold p-2 bg-[#deb887] hover:bg-[#efcfa4] self-center">
+            Cream Making
+          </button>
+
+          <button className="rounded-xl text-gray-800 font-bold p-2 bg-[#deb887] hover:bg-[#efcfa4] self-center">
+            Baking
+          </button>
+
+          <button className="rounded-xl text-gray-800 font-bold p-2 bg-[#deb887] hover:bg-[#efcfa4] self-center">
+            Soap Making
+          </button>
+
+          <button className="rounded-xl text-gray-800 font-bold p-2 bg-[#deb887] hover:bg-[#efcfa4] self-center">
+            Chemical Making
+          </button>
         </div>
       </section>
     </>

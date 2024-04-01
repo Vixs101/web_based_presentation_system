@@ -13,7 +13,7 @@ function Sidebar() {
         <hr className="w-full mt-3 bg-[#deb887]" />
         <ul className="flex flex-col gap-3 text-lg">
           <Link to="/">
-            <li className="flex gap-2 hover:bg-slate-300 h-10 items-center pl-9 text-gray-800">
+            <li className="flex gap-2 hover:bg-slate-300 hover:rounded-2xl h-10 items-center pl-9 text-gray-800">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -28,7 +28,7 @@ function Sidebar() {
             <hr className="w-full bg-[#deb887]" />
           </Link>
           <Link to="/profile">
-            <li className="flex gap-2 hover:bg-slate-300 h-10 items-center pl-9 text-gray-800">
+            <li className="flex gap-2 hover:bg-slate-300 h-10 items-center pl-9 text-gray-800 hover:rounded-2xl">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -46,7 +46,7 @@ function Sidebar() {
             <hr className="w-full bg-[#deb887]" />
           </Link>
           <Link to="/upload_videos">
-            <li className="flex gap-2 hover:bg-slate-300 h-10 items-center pl-9">
+            <li className="flex gap-2 hover:bg-slate-300 h-10 items-center pl-9 hover:rounded-2xl">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -60,7 +60,7 @@ function Sidebar() {
             <hr className="w-full bg-[#deb887]" />
           </Link>
         </ul>
-        <button className="rounded-xl text-gray-800 font-bold p-2 bg-[#deb887] hover:bg-[#deb989] md:w-3/12 ml-20 mt-5">
+        <button className="rounded-xl text-gray-800 font-bold p-2 bg-[#deb887] hover:bg-[#efcfa4] md:w-3/12 ml-20 mt-5">
           Logout
         </button>
       </div>

@@ -22,7 +22,7 @@ export default function ProtectedRoute({ children }: ProtectedRouteProps) {
     <div className="flex h-screen ">
       <Navbar />
       <Sidebar />
-      <div className="flex-grow overflow-auto md:ml-1/5 lg:ml-1/4 mt-20 md:mt-0">
+      <div className="flex-grow overflow-auto md:ml-1/5 lg:ml-1/4 mt-16 md:mt-0">
         <Outlet />
       </div>
     </div>

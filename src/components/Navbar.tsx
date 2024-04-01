@@ -60,7 +60,7 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="w-full bg-gray-50 flex fixed justify-between items-center p-2 md:hidden">
+    <div className="w-full bg-gray-50 flex fixed justify-between items-center p-2 md:hidden border-b-2">
       <img src="/images/logo.png" alt="logo" className="h-8 w-5/12" />
 
       {/* rendering the open and close icon conditionally */}
