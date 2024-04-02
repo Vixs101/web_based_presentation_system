@@ -39,23 +39,43 @@ export default function SearchBar({ onSearch }) {
         </button>
       </form>
       <div className="flex items-center gap-3 justify-center flex-wrap">
-        <button className="rounded-xl text-gray-800 font-bold p-2 bg-[#deb887] hover:bg-[#efcfa4] self-center">
+        <button 
+          className="rounded-xl text-gray-800 font-bold p-2 bg-[#deb887] hover:bg-[#efcfa4] self-center"
+          onClick={() => {setSearchTerm("Perfume Making")}}
+          type="submit" 
+        >
           Perfume Making
         </button>
 
-        <button className="rounded-xl text-gray-800 font-bold p-2 bg-[#deb887] hover:bg-[#efcfa4] self-center">
+        <button
+          className="rounded-xl text-gray-800 font-bold p-2 bg-[#deb887] hover:bg-[#efcfa4] self-center"
+          onClick={() => {setSearchTerm("Cream Making")}}
+          type="submit" 
+          >
           Cream Making
         </button>
 
-        <button className="rounded-xl text-gray-800 font-bold p-2 bg-[#deb887] hover:bg-[#efcfa4] self-center">
+        <button 
+          className="rounded-xl text-gray-800 font-bold p-2 bg-[#deb887] hover:bg-[#efcfa4] self-center"
+          onClick={() => {setSearchTerm("Baking")}}
+          type="submit" 
+          >
           Baking
         </button>
 
-        <button className="rounded-xl text-gray-800 font-bold p-2 bg-[#deb887] hover:bg-[#efcfa4] self-center">
+        <button 
+          className="rounded-xl text-gray-800 font-bold p-2 bg-[#deb887] hover:bg-[#efcfa4] self-center"
+          onClick={() => {setSearchTerm("Soap Making")}}
+          type="submit" 
+          >
           Soap Making
         </button>
 
-        <button className="rounded-xl text-gray-800 font-bold p-2 bg-[#deb887] hover:bg-[#efcfa4] self-center">
+        <button 
+          className="rounded-xl text-gray-800 font-bold p-2 bg-[#deb887] hover:bg-[#efcfa4] self-center"
+          onClick={() => {setSearchTerm("Chemical Making")}}
+          type="submit" 
+          >
           Chemical Making
         </button>
       </div>
