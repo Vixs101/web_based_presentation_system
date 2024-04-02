@@ -5,8 +5,8 @@ export default function SearchBar({ onSearch }) {
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
-    // onSearch(searchTerm);
-    // setSearchTerm("");
+    onSearch(searchTerm);
+    setSearchTerm("");
   };
 
   return (
