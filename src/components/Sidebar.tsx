@@ -60,7 +60,7 @@ function Sidebar() {
             <hr className="w-full bg-[#deb887]" />
           </Link>
         </ul>
-        <button className="rounded-xl text-gray-800 font-bold p-2 bg-[#deb887] hover:bg-[#efcfa4] md:w-3/12 ml-20 mt-5">
+        <button className="rounded-xl text-gray-800 font-bold p-2 bg-[#deb887] hover:bg-[#efcfa4] lg:w-3/12 lg:ml-20 mt-5">
           Logout
         </button>
       </div>

@@ -16,7 +16,7 @@ function VideoComponent() {
   const [isSecondDivVisible, setIsSecondDivVisible] = useState(false);
   const [nextPageToken, setNextPageToken] = useState(null);
 
-  const apiKey = import.meta.env.VITE_APP_API_KEY;
+  const apiKey = import.meta.env.VITE_APP_API_KEY1;
   let baseUrl = `https://www.googleapis.com/youtube/v3/search?key=${apiKey}`;
 
   
@@ -33,7 +33,7 @@ function VideoComponent() {
           pageToken: pageToken,
         },
       });
-
+      console.log(response.data)
       setVideos((prevVideos) => [...prevVideos, ...response.data.items]);
 
       setNextPageToken(response.data.nextPageToken);

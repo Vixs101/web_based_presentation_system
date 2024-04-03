@@ -4,13 +4,13 @@ function Profile() {
   return (
     <>
       <div className=" flex items-center justify-center w-full h-full bg-gray-50">
-        <div className="flex flex-col md:flex-row justify-between md:h-3/4 md:w-3/4 py-6 px-4 bg-[#deb887] rounded-xl gap- items-center md:items-start gap-3 md:gap-0">
+        <div className="flex flex-col md:flex-row justify-between md:h-3/4 md:w-11/12 lg:w-3/4 py-6 px-4 bg-[#deb887] rounded-xl md:gap-5 items-center md:items-start gap-3 lg:gap-0">
           <div className="flex flex-col items-center w-1/3">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill="currentColor"
-              className="w-full h-1/2 text-gray-800"
+              className="md:w-3/4 lg:w-full lg:h-1/2 text-gray-800"
             >
               <path
                 fillRule="evenodd"
@@ -18,9 +18,9 @@ function Profile() {
                 clipRule="evenodd"
               />
             </svg>
-            <h2 className="m-0 text-lg font-bold text-gray-800">currentemail@gmail.com</h2>
+            <h2 className="m-0 text-lg md:text-base lg:text-lg font-bold text-gray-800">currentemail@gmail.com</h2>
           </div>
-          <form className="flex flex-col flex-grow items-center bg-gray-50 rounded-2xl p-4 h-full w-full md:w-auto">
+          <form className="flex flex-col flex-grow items-center bg-gray-50 rounded-2xl p-4 h-full w-full md:w-1/5 lg:w-auto">
             <h1 className="text-xl font-bold text-center text-gray-800">
               Edit User Details
             </h1>
