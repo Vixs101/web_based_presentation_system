@@ -17,7 +17,7 @@ function UploadVideos() {
           <h2>Choose a video file</h2>
           <input
             type="file"
-            className="rounded-xl text-gray-800 font-bold p-2 mt-3 self-center text-center cursor-pointer"
+            className="rounded-xl text-gray-800 font-bold p-2 mt-3 self-center text-center cursor-pointer bg-[#deb887]"
           />
           <button
             className="rounded-xl text-gray-800 font-bold p-2 bg-[#deb887] mx-auto hover:bg-[#efcfa4] mt-3 self-center w-1/2 md:w-1/4"

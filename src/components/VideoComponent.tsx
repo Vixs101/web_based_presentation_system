@@ -25,18 +25,18 @@ function VideoComponent() {
     setError(null);
 
     try {
-      const response = await axios.get(baseUrl, {
-        params: {
-          q: searchTerm,
-          part: "snippet",
-          maxResults: 12,
-          pageToken: pageToken,
-        },
-      });
-      console.log(response.data)
-      setVideos((prevVideos) => [...prevVideos, ...response.data.items]);
+      // const response = await axios.get(baseUrl, {
+      //   params: {
+      //     q: searchTerm,
+      //     part: "snippet",
+      //     maxResults: 12,
+      //     pageToken: pageToken,
+      //   },
+      // });
+      // console.log(response.data)
+      // setVideos((prevVideos) => [...prevVideos, ...response.data.items]);
 
-      setNextPageToken(response.data.nextPageToken);
+      // setNextPageToken(response.data.nextPageToken);
     } catch (error) {
       setError(error);
     }
