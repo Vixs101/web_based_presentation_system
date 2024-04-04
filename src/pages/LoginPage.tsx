@@ -6,6 +6,7 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 
+
 function LoginPage() {
   const [loginType, setLoginType] = useState("login");
   const [userCredentials, setUserCredentials] = useState({});

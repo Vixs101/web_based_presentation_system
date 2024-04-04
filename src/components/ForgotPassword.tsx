@@ -7,14 +7,15 @@ function ForgotPassword() {
   const [sentMessage, setSentMessage] = useState(false);
 
   // handle email change in the input field
-  function handleEmailChange(event) {
-    setEmail(event.target.value);
+  function handleEmailChange(e) {
+    setEmail(e.target.value);
     console.log(email)
   }
 
   // handle submit event
-  function handleSubmit(event) {
+  function handleSubmit(e) {
     sendPasswordResetEmail(auth, email);
+    console.log(email)
   }
 
   return (
@@ -27,14 +28,14 @@ function ForgotPassword() {
               <input
                 type="email"
                 name="email"
-                onChange={handleEmailChange}
+                onChange={(e) =>{handleEmailChange(e)}}
                 placeholder="Input your email to reset your password"
                 className="outline-none border p-2 border-[#deb887] rounded-xl w-full text-center"
               />
               <button
                 type="submit"
-                onClick={() => {
-                  handleSubmit;
+                onClick={(e) => {
+                  handleSubmit(e);
                   setSentMessage(true);
                 }}
                 className="rounded-3xl font-bold p-2 bg-[#deb887] md:w-3/12"
