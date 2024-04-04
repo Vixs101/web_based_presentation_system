@@ -1,9 +1,9 @@
 import React, { useState } from "react";
+import ForgotPassword from "../components/ForgotPassword";
 import { auth } from "../firebase/config";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  sendPasswordResetEmail
 } from "firebase/auth";
 
 function LoginPage() {
@@ -11,12 +11,10 @@ function LoginPage() {
   const [userCredentials, setUserCredentials] = useState({});
   const [error, setError] = useState("");
   const [forgotPassword, setForgotPassword] = useState(false);
-  const [credentialReset, setCredentialReset] = useState('');
 
   // function that retrieves the user credentials
   function handleCredentials(e) {
     setUserCredentials({ ...userCredentials, [e.target.name]: e.target.value });
-    console.log(userCredentials);
   }
 
   // function to handle signup and send the details to firebase
@@ -53,11 +51,6 @@ function LoginPage() {
       .catch((error) => {
         setError(error.message);
       });
-  }
-
-  // a function to handle password reset
-  function handlePasswordReset(event) {
-    sendPasswordResetEmail(auth, credentialReset)
   }
 
   return (
@@ -140,38 +133,18 @@ function LoginPage() {
           {/* conditionally rendering the error message */}
           {error && <div className="mt-3 text-red-600">{error}</div>}
 
-          {/* handling forgot password */}
-          <p
-            onClick={() => {
-              console.log("forgot Password clicked");
-
-              forgotPassword
-                ? setForgotPassword(false)
-                : setForgotPassword(true);
-              {
-                forgotPassword && (
-                  <div className="self-center ">
-                    <input
-                      type="email"
-                      name="email"
-                      placeholder="Input your email to reset your password"
-                      onChange={(e)=>{setCredentialReset(e.target.value)}}
-                    />
-                    <button
-                      type="submit"
-                      className="rounded-3xl font-bold p-2 bg-[#deb887] md:w-3/12"
-                      onClick={handlePasswordReset}
-                    >
-                      submit
-                    </button>
-                  </div>
-                );
-              }
-            }}
-            className="underline cursor-pointer italic text-red-600 font-semibold mt-3"
-          >
-            Forgot Password
-          </p>
+          <div className="font-semibold mt-3">
+            <p
+              onClick={() => {
+                console.log("clicked forgot password");
+                setForgotPassword(!forgotPassword);
+              }}
+              className="text-red-600 underline cursor-pointer italic"
+            >
+              Forgot Password
+            </p>
+            {forgotPassword && <ForgotPassword />}
+          </div>
         </form>
       </section>
     </div>
