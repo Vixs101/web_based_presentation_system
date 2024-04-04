@@ -1,5 +1,32 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { auth } from "../firebase/config";
+import { signOut } from "firebase/auth";
+
+function handleSignOut() {
+  signOut(auth)
+    .then(() => {
+      const navigate = useNavigate();
+      navigate("/login", { replace: true });
+      return null;
+    })
+    .catch((error) => {
+      // Handle errors with specific messages
+      let errorMessage = "Sign out failed. Please try again.";
+      switch (error.code) {
+        case "auth/network-request-failed":
+          errorMessage =
+            "Network error. Please check your internet connection.";
+          break;
+        case "auth/too-many-requests":
+          errorMessage = "Too many sign-out attempts. Please try again later.";
+          break;
+        default:
+          console.error("Sign out error:", error); 
+      }
+      alert(errorMessage);
+    });
+}
 
 function Sidebar() {
   return (
@@ -60,7 +87,10 @@ function Sidebar() {
             <hr className="w-full bg-[#deb887]" />
           </Link>
         </ul>
-        <button className="rounded-xl text-gray-800 font-bold p-2 bg-[#deb887] hover:bg-[#efcfa4] lg:w-3/12 lg:ml-20 mt-5">
+        <button
+          onClick={handleSignOut}
+          className="rounded-xl text-gray-800 font-bold p-2 bg-[#deb887] hover:bg-[#efcfa4] lg:w-3/12 lg:ml-20 mt-5"
+        >
           Logout
         </button>
       </div>

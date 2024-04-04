@@ -1,22 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import { PropsWithChildren, useEffect } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
+import { auth } from "../firebase/config";
 import Sidebar from "./Sidebar";
 import Navbar from "./Navbar";
+import { onAuthStateChanged } from "firebase/auth";
+
 type ProtectedRouteProps = PropsWithChildren;
 
 export default function ProtectedRoute({ children }: ProtectedRouteProps) {
-  //define a variable that will store whether a user is signed in or not
+  const [isUserSignedIn, setIsUserSignedIn] = useState(false);
+  const navigate = useNavigate();
+  const user = auth.currentUser
+  console.log(user)
+  
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setIsUserSignedIn(!!user); //update state based on truthy and falsy values
+    });
 
-  //define a variable that will useNavigate from reactrouter-dom to navigate the user to the signin page
+    return () => unsubscribe(); //cleaning up the listener on unmount
+  }, [auth]);
 
-  //use use effect to execute the useNavigate function
-  //replace true in the useeffect will prevent the user from going back to the previous page.
-  //   useEffect(()=> {
-  //     if (user === null) {
-  //         navigate('/signin', {replace: true});
-  //     }
-  //   }, [navigate, user]);
+  if (!isUserSignedIn) {
+    navigate("/login", {replace:true});
+    return null; //prevents rendering children if not signed in
+  }
 
   return (
     <div className="flex h-screen ">

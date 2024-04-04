@@ -1,5 +1,7 @@
+import { signOut } from "firebase/auth";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { auth } from "../firebase/config";
 
 const links = [
   {
@@ -53,6 +55,32 @@ const links = [
     ),
   },
 ];
+
+// function to signout users
+function handleSignOut() {
+  signOut(auth)
+    .then(() => {
+      const navigate = useNavigate();
+      navigate("/login", { replace: true });
+      return null;
+    })
+    .catch((error) => {
+      // Handle errors with specific messages
+      let errorMessage = "Sign out failed. Please try again.";
+      switch (error.code) {
+        case "auth/network-request-failed":
+          errorMessage =
+            "Network error. Please check your internet connection.";
+          break;
+        case "auth/too-many-requests":
+          errorMessage = "Too many sign-out attempts. Please try again later.";
+          break;
+        default:
+          console.error("Sign out error:", error); 
+      }
+      alert(errorMessage);
+    });
+}
 
 // main function
 
