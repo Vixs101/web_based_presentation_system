@@ -3,11 +3,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../firebase/config";
 import { signOut } from "firebase/auth";
 
-function handleSignOut() {
+function handleSignOut(navigate) {
   signOut(auth)
     .then(() => {
-      const navigate = useNavigate();
-      navigate("/login", { replace: true });
+      navigate("/login");
       return null;
     })
     .catch((error) => {
@@ -28,7 +27,7 @@ function handleSignOut() {
     });
 }
 
-function Sidebar() {
+function Sidebar({navigate}) {
   return (
     <div className="">
       <div className="hidden md:flex flex-col gap-5 h-full overflow-auto fixed md:w-1/4 lg:w-1/5 p-2 border-r-2 border-r-[#deb887] bg-gray-50 text-gray-800">
@@ -88,7 +87,7 @@ function Sidebar() {
           </Link>
         </ul>
         <button
-          onClick={handleSignOut}
+          onClick={() => {handleSignOut(navigate)}}
           className="rounded-xl text-gray-800 font-bold p-2 bg-[#deb887] hover:bg-[#efcfa4] lg:w-3/12 lg:ml-20 mt-5"
         >
           Logout

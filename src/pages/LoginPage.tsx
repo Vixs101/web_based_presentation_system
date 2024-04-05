@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ForgotPassword from "../components/ForgotPassword";
 import { auth } from "../firebase/config";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 
 function LoginPage() {
@@ -12,6 +13,7 @@ function LoginPage() {
   const [userCredentials, setUserCredentials] = useState({});
   const [error, setError] = useState("");
   const [forgotPassword, setForgotPassword] = useState(false);
+  const navigate = useNavigate();
 
   // function that retrieves the user credentials
   function handleCredentials(e) {
@@ -48,6 +50,11 @@ function LoginPage() {
     )
       .then((userCredential) => {
         const user = userCredential.user;
+
+        if (user) {
+          navigate('/');
+        }
+
       })
       .catch((error) => {
         setError(error.message);
@@ -116,7 +123,7 @@ function LoginPage() {
               onClick={(e) => {
                 handleLogin(e);
               }}
-              className="rounded-3xl font-bold p-2 bg-[#deb887] md:w-3/12"
+              className="rounded-xl font-bold p-2 bg-[#deb887] md:w-3/12"
             >
               Login
             </button>
@@ -125,7 +132,7 @@ function LoginPage() {
               onClick={(e) => {
                 handleSignup(e);
               }}
-              className="rounded-3xl font-bold p-2 bg-[#deb887] md:w-3/12"
+              className="rounded-xl font-bold p-2 bg-[#deb887] md:w-3/12"
             >
               Sign up
             </button>

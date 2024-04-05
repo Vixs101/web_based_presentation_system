@@ -4,7 +4,7 @@ function Profile() {
   return (
     <>
       <div className=" flex items-center justify-center w-full h-full bg-gray-50">
-        <div className="flex flex-col md:flex-row justify-between md:h-3/4 md:w-11/12 lg:w-3/4 py-6 px-4 bg-[#deb887] rounded-xl md:gap-5 items-center md:items-start gap-3 lg:gap-0">
+        <div className="flex flex-col md:flex-row justify-between md:h-3/4 w-11/12 lg:w-3/4 py-6 px-4 bg-[#deb887] rounded-xl md:gap-5 items-center md:items-start gap-3 lg:gap-0">
           <div className="flex flex-col items-center w-1/3">
             <svg
               xmlns="http://www.w3.org/2000/svg"

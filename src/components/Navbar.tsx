@@ -57,11 +57,10 @@ const links = [
 ];
 
 // function to signout users
-function handleSignOut() {
+function handleSignOut(navigate) {
   signOut(auth)
     .then(() => {
-      const navigate = useNavigate();
-      navigate("/login", { replace: true });
+      navigate("/login");
       return null;
     })
     .catch((error) => {
@@ -76,7 +75,7 @@ function handleSignOut() {
           errorMessage = "Too many sign-out attempts. Please try again later.";
           break;
         default:
-          console.error("Sign out error:", error); 
+          console.error("Sign out error:", error);
       }
       alert(errorMessage);
     });
@@ -84,7 +83,7 @@ function handleSignOut() {
 
 // main function
 
-export default function Navbar() {
+export default function Navbar({ navigate }) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -140,7 +139,12 @@ export default function Navbar() {
               <hr className="w-full mt-3 bg-blue-500" />
             </Link>
           ))}
-          <button className="rounded-xl text-gray-800 font-bold p-2 bg-[#deb887] hover:bg-[#deb989] self-center">
+          <button
+            onClick={() => {
+              handleSignOut(navigate);
+            }}
+            className="rounded-xl text-gray-800 font-bold p-2 bg-[#deb887] hover:bg-[#deb989] self-center"
+          >
             Logout
           </button>
         </div>
