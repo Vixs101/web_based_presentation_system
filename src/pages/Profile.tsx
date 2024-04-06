@@ -1,25 +1,72 @@
 import React, { useEffect, useState } from "react";
 import { auth } from "../firebase/config";
-import { onAuthStateChanged } from "firebase/auth";
+import {
+  EmailAuthProvider,
+  onAuthStateChanged,
+  reauthenticateWithCredential,
+  updateEmail,
+  updatePassword,
+} from "firebase/auth";
 
 function Profile() {
-  const [userEmail, setUserEmail] = useState('');
+  const [userEmail, setUserEmail] = useState("");
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // getting the current user when the component mount
-  useEffect(() =>{
+  useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUserEmail(user?.email ?? "");
-      }
-      else {
-        console.log('no user is signed')
+      } else {
+        console.log("no user is signed");
       }
     });
 
     return () => unsubscribe();
-  }, [])
+  }, []);
 
+  // function to update the user credentials
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+    setError("");
+    setIsSubmitting(true);
 
+    try {
+      //get the current user
+      const user = auth.currentUser;
+
+      // create credential object from the current password
+      const credential = reauthenticateWithCredential(
+        EmailAuthProvider,
+        credential(userEmail, currentPassword)
+      );
+
+      // reauthenticate the user
+      await reauthenticateWithCredential(user, credential);
+
+      if (newPassword && newPassword === confirmPassword) {
+        await updatePassword(user, newPassword);
+        setNewPassword("");
+        setConfirmPassword("");
+      }
+
+      if (userEmail) {
+        await updateEmail(user, userEmail);
+      }
+
+      alert("Profile updated successfully!");
+
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+  
   return (
     <>
       <div className=" flex items-center justify-center w-full h-full bg-gray-50">
