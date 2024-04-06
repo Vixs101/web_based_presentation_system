@@ -8,6 +8,15 @@ import {
   updatePassword,
 } from "firebase/auth";
 
+//loader component
+const Loader = () => {
+  return (
+    <div className="loader">
+      <p>Loading...</p>
+    </div>
+  );
+};
+
 function Profile() {
   const [userEmail, setUserEmail] = useState("");
   const [currentPassword, setCurrentPassword] = useState("");
@@ -40,33 +49,35 @@ function Profile() {
       const user = auth.currentUser;
 
       // create credential object from the current password
-      const credential = reauthenticateWithCredential(
-        EmailAuthProvider,
-        credential(userEmail, currentPassword)
+      const credential = EmailAuthProvider.credential(
+        userEmail,
+        currentPassword
       );
 
-      // reauthenticate the user
-      await reauthenticateWithCredential(user, credential);
+      if (user) {
+        // reauthenticate the user
+        await reauthenticateWithCredential(user, credential);
 
-      if (newPassword && newPassword === confirmPassword) {
-        await updatePassword(user, newPassword);
-        setNewPassword("");
-        setConfirmPassword("");
+        if (newPassword && newPassword === confirmPassword) {
+          await updatePassword(user, newPassword);
+          setNewPassword("");
+          setConfirmPassword("");
+        }
+
+        if (userEmail) {
+          await updateEmail(user, userEmail);
+        }
+        alert("Profile updated successfully!");
+      } else {
+        setError("User not found");
       }
-
-      if (userEmail) {
-        await updateEmail(user, userEmail);
-      }
-
-      alert("Profile updated successfully!");
-
     } catch (error) {
       setError(error.message);
     } finally {
       setIsSubmitting(false);
     }
   };
-  
+
   return (
     <>
       <div className=" flex items-center justify-center w-full h-full bg-gray-50">
@@ -88,7 +99,10 @@ function Profile() {
               {userEmail}
             </h2>
           </div>
-          <form className="flex flex-col flex-grow items-center bg-gray-50 rounded-2xl p-4 h-full w-full md:w-1/5 lg:w-auto">
+          <form
+            onSubmit={handleUpdate}
+            className="flex flex-col flex-grow items-center bg-gray-50 rounded-2xl p-4 h-full w-full md:w-1/5 lg:w-auto"
+          >
             <h1 className="text-xl font-bold text-center text-gray-800">
               Edit User Details
             </h1>
@@ -99,6 +113,10 @@ function Profile() {
               <input
                 type="email"
                 name="email"
+                value={userEmail}
+                onChange={(e) => {
+                  setUserEmail(e.target.value);
+                }}
                 placeholder="Enter your email"
                 className="outline-none border p-2 border-[#deb887] rounded-xl w-full"
               />
@@ -110,19 +128,43 @@ function Profile() {
               </label>
               <input
                 type="password"
-                name="password"
+                name="currentPassword"
+                value={currentPassword}
+                onChange={(e) => {
+                  setCurrentPassword(e.target.value);
+                }}
                 placeholder="Enter your password"
                 className="outline-none border p-2 border-[#deb887] rounded-xl w-full"
               />
             </div>
             <div className="flex flex-col gap-2 items-start mb- w-full">
               <label htmlFor="password" className="font-semibold text-gray-800">
-                confirm Password *
+                New Password*
               </label>
               <input
                 type="password"
                 name="password"
+                value={newPassword}
+                onChange={(e) => {
+                  setNewPassword(e.target.value);
+                }}
                 placeholder="confirm password"
+                className="outline-none border p-2 border-[#deb887] rounded-xl w-full"
+              />
+            </div>
+            <div className="flex flex-col gap-2 items-start mt-5 w-full">
+              <label
+                htmlFor="confirmPassword"
+                className="font-semibold text-gray-800"
+              >
+                Confirm New Password *
+              </label>
+              <input
+                type="password"
+                name="confirmPassword"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                placeholder="Confirm your new password"
                 className="outline-none border p-2 border-[#deb887] rounded-xl w-full"
               />
             </div>
@@ -133,6 +175,7 @@ function Profile() {
               Save details
             </button>
           </form>
+          {isSubmitting && <Loader />}
         </div>
       </div>
     </>
