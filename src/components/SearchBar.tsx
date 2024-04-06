@@ -23,7 +23,7 @@ export default function SearchBar({ onSearch }) {
           onChange={(e) => setSearchTerm(e.target.value)}
         />
 
-        <button type="submit">
+        <button type="submit" onClick={handleSearchSubmit}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -39,43 +39,53 @@ export default function SearchBar({ onSearch }) {
         </button>
       </form>
       <div className="flex items-center gap-3 justify-center flex-wrap">
-        <button 
+        <button
           className="rounded-xl text-gray-800 font-bold p-2 bg-[#deb887] hover:bg-[#efcfa4] self-center"
-          onClick={() => {setSearchTerm("Perfume Making")}}
-          type="submit" 
+          onClick={() => {
+            setSearchTerm("Perfume Making");
+          }}
+          type="submit"
         >
           Perfume Making
         </button>
 
         <button
           className="rounded-xl text-gray-800 font-bold p-2 bg-[#deb887] hover:bg-[#efcfa4] self-center"
-          onClick={() => {setSearchTerm("Cream Making")}}
-          type="submit" 
-          >
+          onClick={() => {
+            setSearchTerm("Cream Making");
+          }}
+          type="submit"
+        >
           Cream Making
         </button>
 
-        <button 
+        <button
           className="rounded-xl text-gray-800 font-bold p-2 bg-[#deb887] hover:bg-[#efcfa4] self-center"
-          onClick={() => {setSearchTerm("Baking")}}
-          type="submit" 
-          >
+          onClick={() => {
+            setSearchTerm("Baking");
+          }}
+          type="submit"
+        >
           Baking
         </button>
 
-        <button 
+        <button
           className="rounded-xl text-gray-800 font-bold p-2 bg-[#deb887] hover:bg-[#efcfa4] self-center"
-          onClick={() => {setSearchTerm("Soap Making")}}
-          type="submit" 
-          >
+          onClick={() => {
+            setSearchTerm("Soap Making");
+          }}
+          type="submit"
+        >
           Soap Making
         </button>
 
-        <button 
+        <button
           className="rounded-xl text-gray-800 font-bold p-2 bg-[#deb887] hover:bg-[#efcfa4] self-center"
-          onClick={() => {setSearchTerm("Chemical Making")}}
-          type="submit" 
-          >
+          onClick={() => {
+            setSearchTerm("Chemical Making");
+          }}
+          type="submit"
+        >
           Chemical Making
         </button>
       </div>

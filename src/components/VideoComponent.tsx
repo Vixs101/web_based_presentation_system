@@ -15,8 +15,9 @@ function VideoComponent() {
   const [loadingVideos, setLoadingVideos] = useState(true);
   const [isSecondDivVisible, setIsSecondDivVisible] = useState(false);
   const [nextPageToken, setNextPageToken] = useState(null);
+  const [isSearching, setIsSearching] = useState(false);
 
-  const apiKey = import.meta.env.VITE_APP_API_KEY1;
+  const apiKey = import.meta.env.VITE_APP_API_KEY;
   let baseUrl = `https://www.googleapis.com/youtube/v3/search?key=${apiKey}`;
 
   
@@ -63,19 +64,27 @@ function VideoComponent() {
 
   // handling search from search bar
   const handleSearch = async (searchTerm) => {
+    setIsSearching(true);
+    // set video array to empty
+    setVideos([]);
     await fetchVideos(searchTerm);
+    setIsSearching(false);
   };
 
   //handle see more
   const handleSeeMore = async (searchTerm) => {
     if (nextPageToken) {
       await fetchVideos(searchTerm, nextPageToken);
+      setIsSecondDivVisible(false);
+      setIsSecondDivVisible(true);
     }
   };
 
   return (
     <div className="flex flex-col gap-5">
+
       <SearchBar onSearch={handleSearch} />
+      {isSearching && <p className="text2xl font-extrabold text-gray-800 text-center">Loading Videos</p>}
 
       {error ? (
         <div className="text-red-500 text-center">
