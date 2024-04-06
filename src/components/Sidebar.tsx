@@ -34,7 +34,7 @@ function Sidebar({navigate}) {
         <img
           src="/images/logo.png"
           alt="craft School logo"
-          className=" h-8 w-3/4 pl-9"
+          className=" h-12 w-5/6 pl-9"
         />
         <hr className="w-full mt-3 bg-[#deb887]" />
         <ul className="flex flex-col gap-3 text-lg">

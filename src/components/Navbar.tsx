@@ -88,7 +88,7 @@ export default function Navbar({ navigate }) {
 
   return (
     <div className="w-full bg-gray-50 flex fixed justify-between items-center p-2 md:hidden border-b-2">
-      <img src="/images/logo.png" alt="logo" className="h-8 w-5/12" />
+      <img src="/images/logo.png" alt="logo" className="h-10 w-2/5" />
 
       {/* rendering the open and close icon conditionally */}
 
@@ -99,7 +99,7 @@ export default function Navbar({ navigate }) {
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="currentColor"
-          className="w-8 h-10 font-extrabold cursor-pointer duration-500"
+          className="w-10 h-10 font-extrabold cursor-pointer duration-500"
           onClick={() => setOpen(true)}
         >
           <path

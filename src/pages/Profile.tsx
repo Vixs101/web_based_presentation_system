@@ -1,6 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { auth } from "../firebase/config";
+import { onAuthStateChanged } from "firebase/auth";
 
 function Profile() {
+  const [userEmail, setUserEmail] = useState('');
+
+  // getting the current user when the component mount
+  useEffect(() =>{
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUserEmail(user?.email ?? "");
+      }
+      else {
+        console.log('no user is signed')
+      }
+    });
+
+    return () => unsubscribe();
+  }, [])
+
+
   return (
     <>
       <div className=" flex items-center justify-center w-full h-full bg-gray-50">
@@ -18,7 +37,9 @@ function Profile() {
                 clipRule="evenodd"
               />
             </svg>
-            <h2 className="m-0 text-lg md:text-base lg:text-lg font-bold text-gray-800">currentemail@gmail.com</h2>
+            <h2 className="m-0 text-lg md:text-base lg:text-lg font-bold text-gray-800">
+              {userEmail}
+            </h2>
           </div>
           <form className="flex flex-col flex-grow items-center bg-gray-50 rounded-2xl p-4 h-full w-full md:w-1/5 lg:w-auto">
             <h1 className="text-xl font-bold text-center text-gray-800">

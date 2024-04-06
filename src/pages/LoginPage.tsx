@@ -7,12 +7,12 @@ import {
 } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
-
 function LoginPage() {
   const [loginType, setLoginType] = useState("login");
   const [userCredentials, setUserCredentials] = useState({});
   const [error, setError] = useState("");
   const [forgotPassword, setForgotPassword] = useState(false);
+  const [isLoginIn, setIsLoginIn] = useState(false);
   const navigate = useNavigate();
 
   // function that retrieves the user credentials
@@ -42,6 +42,7 @@ function LoginPage() {
   function handleLogin(e) {
     e.preventDefault();
     setError("");
+    setIsLoginIn(true);
 
     signInWithEmailAndPassword(
       auth,
@@ -52,12 +53,14 @@ function LoginPage() {
         const user = userCredential.user;
 
         if (user) {
-          navigate('/');
+          navigate("/");
         }
-
       })
       .catch((error) => {
         setError(error.message);
+      })
+      .finally(() => {
+        setIsLoginIn(false);
       });
   }
 
@@ -153,6 +156,12 @@ function LoginPage() {
             </p>
             {forgotPassword && <ForgotPassword />}
           </div>
+          {isLoginIn && (
+        <div className="flex self-center justify-center items-center h-10 animate-pulse bg-[#deb887] rounded-xl w-3/4 m-auto mt-3 px-2">
+          <div className="w-8 h-8 rounded-full bg-gray-50 animate-spin"></div>
+          <p className="text-gray-800 text-lg font-semibold ml-3">Login in...</p>
+        </div>
+      )}
         </form>
       </section>
     </div>

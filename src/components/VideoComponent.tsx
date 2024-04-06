@@ -20,7 +20,6 @@ function VideoComponent() {
   const apiKey = import.meta.env.VITE_APP_API_KEY;
   let baseUrl = `https://www.googleapis.com/youtube/v3/search?key=${apiKey}`;
 
-  
   // function to fetch videos
   const fetchVideos = async (searchTerm, pageToken = null) => {
     setError(null);
@@ -34,7 +33,7 @@ function VideoComponent() {
           pageToken: pageToken,
         },
       });
-      console.log(response.data)
+      console.log(response.data);
       setVideos((prevVideos) => [...prevVideos, ...response.data.items]);
 
       setNextPageToken(response.data.nextPageToken);
@@ -45,21 +44,21 @@ function VideoComponent() {
 
   // using useEffect for default videos
   useEffect(() => {
-    fetchVideos("baking, soap making, and perfume making");
+    // fetchVideos("baking, soap making, and perfume making");
 
-    //setting time for loading videos
-    const timeOut = setTimeout(() => {
-      setLoadingVideos(false);
-    }, 10000);
+    // //setting time for loading videos
+    // const timeOut = setTimeout(() => {
+    //   setLoadingVideos(false);
+    // }, 10000);
 
-    const secondDivTimeoutId = setTimeout(() => {
-      setIsSecondDivVisible(true);
-    }, 10000);
+    // const secondDivTimeoutId = setTimeout(() => {
+    //   setIsSecondDivVisible(true);
+    // }, 10000);
 
-    return () => {
-      clearTimeout(timeOut);
-      clearTimeout(secondDivTimeoutId);
-    };
+    // return () => {
+    //   clearTimeout(timeOut);
+    //   clearTimeout(secondDivTimeoutId);
+    // };
   }, []);
 
   // handling search from search bar
@@ -73,18 +72,26 @@ function VideoComponent() {
 
   //handle see more
   const handleSeeMore = async (searchTerm) => {
-    if (nextPageToken) {
+    if (searchTerm && nextPageToken) {
+      console.log(searchTerm)
       await fetchVideos(searchTerm, nextPageToken);
       setIsSecondDivVisible(false);
       setIsSecondDivVisible(true);
+    } else {
+      console.log(searchTerm)
+      searchTerm('')
+      alert("End of Search Results")
     }
   };
 
   return (
     <div className="flex flex-col gap-5">
-
       <SearchBar onSearch={handleSearch} />
-      {isSearching && <p className="text2xl font-extrabold text-gray-800 text-center">Loading Videos</p>}
+      {isSearching && (
+        <p className="text2xl font-extrabold text-gray-800 text-center">
+          Loading Videos
+        </p>
+      )}
 
       {error ? (
         <div className="text-red-500 text-center">
