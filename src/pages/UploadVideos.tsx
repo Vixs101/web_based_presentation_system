@@ -1,4 +1,6 @@
 import React from "react";
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+
 
 function UploadVideos() {
   return (

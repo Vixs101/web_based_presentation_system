@@ -44,21 +44,21 @@ function VideoComponent() {
 
   // using useEffect for default videos
   useEffect(() => {
-    // fetchVideos("baking, soap making, and perfume making");
+    fetchVideos("baking, soap making, and perfume making");
 
-    // //setting time for loading videos
-    // const timeOut = setTimeout(() => {
-    //   setLoadingVideos(false);
-    // }, 10000);
+    //setting time for loading videos
+    const timeOut = setTimeout(() => {
+      setLoadingVideos(false);
+    }, 10000);
 
-    // const secondDivTimeoutId = setTimeout(() => {
-    //   setIsSecondDivVisible(true);
-    // }, 10000);
+    const secondDivTimeoutId = setTimeout(() => {
+      setIsSecondDivVisible(true);
+    }, 10000);
 
-    // return () => {
-    //   clearTimeout(timeOut);
-    //   clearTimeout(secondDivTimeoutId);
-    // };
+    return () => {
+      clearTimeout(timeOut);
+      clearTimeout(secondDivTimeoutId);
+    };
   }, []);
 
   // handling search from search bar
