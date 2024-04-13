@@ -1,8 +1,41 @@
 import React from "react";
-import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
+import { storage } from "../firebase/config";
 
 function UploadVideos() {
+
+  async function handleVideoUpload(file) {
+    //create a reference in the videos folder
+    const storageRef = ref(storage, `videos/${file.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+
+    try {
+      const snapshot = await uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log(`upload is ${progress}% done`);
+        },
+        (error) => {
+          console.log(error);
+        },
+        // async (completedSnapshot) => {
+        //   const downloadURL = await getDownloadURL(storageRef);
+        //   return downloadURL;
+        // }
+      );
+
+      return snapshot.metadata.downloadURL;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
   return (
     <>
       <div className="h-full w-full flex flex-col p-4 items-center bg-gray-50">
@@ -19,7 +52,7 @@ function UploadVideos() {
           <h2>Choose a video file</h2>
           <input
             type="file"
-            className="rounded-xl text-gray-800 font-bold p-2 mt-3 self-center text-center cursor-pointer bg-[#deb887]"
+            className="rounded-xl text-gray-800 font-bold p-2 mt-3 self-center text-center cursor-pointer bg-[#deb887] w-3/4"
           />
           <button
             className="rounded-xl text-gray-800 font-bold p-2 bg-[#deb887] mx-auto hover:bg-[#efcfa4] mt-3 self-center w-1/2 md:w-1/4"
@@ -28,7 +61,6 @@ function UploadVideos() {
             Upload Video
           </button>
         </div>
-
       </div>
     </>
   );
