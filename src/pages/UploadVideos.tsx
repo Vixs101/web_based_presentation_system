@@ -1,41 +1,38 @@
-import React from "react";
+import React, {useState} from "react";
 import {
   getStorage,
   ref,
-  uploadBytesResumable,
+  uploadBytes,
   getDownloadURL,
 } from "firebase/storage";
 import { storage } from "../firebase/config";
+import {v4} from 'uuid';
 
 function UploadVideos() {
+  const [videoUpload, setVideoUpload] = useState<File | null>(null);
 
-  async function handleVideoUpload(file) {
-    //create a reference in the videos folder
-    const storageRef = ref(storage, `videos/${file.name}`);
-    const uploadTask = uploadBytesResumable(storageRef, file);
-
-    try {
-      const snapshot = await uploadTask.on(
-        "state_changed",
-        (snapshot) => {
-          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log(`upload is ${progress}% done`);
-        },
-        (error) => {
-          console.log(error);
-        },
-        // async (completedSnapshot) => {
-        //   const downloadURL = await getDownloadURL(storageRef);
-        //   return downloadURL;
-        // }
-      );
-
-      return snapshot.metadata.downloadURL;
-    } catch (error) {
-      console.error(error);
-      throw error;
+  // handle the file selection procedure
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0]; // Get the first file selected
+    if (file) {
+      setVideoUpload(file);
+    } else {
+      setVideoUpload(null);
     }
+  };
+
+  
+  // handle the uploading procedure
+  const handleUpload = () => {
+    if (videoUpload == null) return;
+
+    const videoRef = ref(storage, `videos/${videoUpload.name + v4()}`);
+
+    uploadBytes(videoRef, videoUpload).then(() => {
+      alert('image uploaded')
+    })
   }
+
   return (
     <>
       <div className="h-full w-full flex flex-col p-4 items-center bg-gray-50">
@@ -52,11 +49,13 @@ function UploadVideos() {
           <h2>Choose a video file</h2>
           <input
             type="file"
+            onChange={handleFileChange}
             className="rounded-xl text-gray-800 font-bold p-2 mt-3 self-center text-center cursor-pointer bg-[#deb887] w-3/4"
           />
           <button
             className="rounded-xl text-gray-800 font-bold p-2 bg-[#deb887] mx-auto hover:bg-[#efcfa4] mt-3 self-center w-1/2 md:w-1/4"
             type="submit"
+            onClick={handleUpload}
           >
             Upload Video
           </button>
