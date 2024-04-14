@@ -1,15 +1,19 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {
   getStorage,
   ref,
   uploadBytes,
   getDownloadURL,
+  listAll,
 } from "firebase/storage";
 import { storage } from "../firebase/config";
 import {v4} from 'uuid';
 
 function UploadVideos() {
   const [videoUpload, setVideoUpload] = useState<File | null>(null);
+  const [videoList, setVideoList] = useState([]);
+  
+  const videoListRef = ref(storage, "videos/");
 
   // handle the file selection procedure
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,7 +35,20 @@ function UploadVideos() {
     uploadBytes(videoRef, videoUpload).then(() => {
       alert('image uploaded')
     })
-  }
+  };
+
+  //
+  useEffect(() => {
+    listAll(videoListRef).then((response) => {
+      response.items.forEach((item) => {
+        getDownloadURL(item.then((url) => {
+          setVideoList((prev) => [...prev, url]);
+
+        }))
+      })
+    })
+  }, [])
+  
 
   return (
     <>
