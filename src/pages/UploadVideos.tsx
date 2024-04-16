@@ -15,6 +15,14 @@ function UploadVideos() {
   const [videoTitle, setVideoTitle] = useState("");
   const [channelName, setChannelName] = useState("");
 
+  // interface for video info
+  interface VideoInfo {
+    url: string;
+    title: string;
+    channelName: string;
+  }
+
+
   const videoListRef = ref(storage, "videos/");
 
   // handle the file selection procedure
@@ -31,14 +39,12 @@ function UploadVideos() {
   const handleUpload = () => {
     if (videoUpload == null) return;
 
-    const videoRef = ref(storage, `videos/${videoUpload.name + v4()}`);
+    if(!videoTitle || !channelName) return;
 
-    const metadata = {
-      customMetadata: {
-        title: videoTitle,
-        channel: channelName,
-      },
-    };
+    const videoRef = ref(storage,
+      `videos/<span class="math-inline">\{videoTitle\}\-</span>{channelName}.${videoUpload.type.split("/")[1]}`);
+
+     const metadata = {}
 
     try {
       uploadBytes(videoRef, videoUpload, metadata).then((snapshot) => {
@@ -126,8 +132,8 @@ function UploadVideos() {
                   className="w-full rounded-t-xl"
                 ></iframe>
                 <div className="flex flex-col gap-3 ml-3 mb-3 ">
-                  <h2 className="text-base font-extrabold">Title: {}</h2>
-                  <p className="">Channel: {}</p>
+                  <h2 className="text-base font-extrabold">Title: {videoTitle}</h2>
+                  <p className="">Channel: {channelName}</p>
                 </div>
               </div>
             );
