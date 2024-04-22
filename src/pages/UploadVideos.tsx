@@ -132,8 +132,6 @@ function UploadVideos() {
                   className="w-full rounded-t-xl"
                 ></iframe>
                 <div className="flex flex-col gap-3 ml-3 mb-3 ">
-                  <h2 className="text-base font-extrabold">Title: {videoTitle}</h2>
-                  <p className="">Channel: {channelName}</p>
                 </div>
               </div>
             );

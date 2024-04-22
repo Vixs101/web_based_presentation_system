@@ -29,7 +29,7 @@ function VideoComponent() {
         params: {
           q: searchTerm,
           part: "snippet",
-          maxResults: 12,
+          maxResults: 9,
           pageToken: pageToken,
         },
       });

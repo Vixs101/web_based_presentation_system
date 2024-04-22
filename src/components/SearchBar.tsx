@@ -2,10 +2,24 @@ import React, { useState } from "react";
 
 export default function SearchBar({ onSearch }) {
   const [searchTerm, setSearchTerm] = useState("");
+  const craftSkills = ["perfume", "cream", "baking", "soap", "chemicals"];
+  const relevantTerms = ["how to", "how can i", "make", "bake", "create"];
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
-    onSearch(searchTerm);
+    const searchTermLower = searchTerm.toLowerCase(); //case insensitive matching
+
+    if (
+      craftSkills.some((keyword) => searchTermLower.includes(keyword)) &&
+      relevantTerms.some((term) => searchTermLower.includes(term))
+    ) {
+      onSearch(searchTerm);
+    } else {
+      alert(
+        "Search for crafting tips! Try using a format like 'How to bake a cake' or 'Making perfume at home'."
+      );
+    }
+
     setSearchTerm("");
   };
 
@@ -18,7 +32,7 @@ export default function SearchBar({ onSearch }) {
         <input
           type="text"
           value={searchTerm}
-          placeholder="What do you want to learn today??"
+          placeholder="Search for crafting tips, always start with 'How to'..."
           className="outline-none w-full"
           onChange={(e) => setSearchTerm(e.target.value)}
         />
@@ -42,7 +56,7 @@ export default function SearchBar({ onSearch }) {
         <button
           className="rounded-xl text-gray-800 font-bold p-2 bg-[#deb887] hover:bg-[#efcfa4] self-center"
           onClick={() => {
-            setSearchTerm("Perfume Making");
+            setSearchTerm("How to make Perfumes");
           }}
           type="submit"
         >
@@ -52,7 +66,7 @@ export default function SearchBar({ onSearch }) {
         <button
           className="rounded-xl text-gray-800 font-bold p-2 bg-[#deb887] hover:bg-[#efcfa4] self-center"
           onClick={() => {
-            setSearchTerm("Cream Making");
+            setSearchTerm("How to make body Creams");
           }}
           type="submit"
         >
@@ -62,7 +76,7 @@ export default function SearchBar({ onSearch }) {
         <button
           className="rounded-xl text-gray-800 font-bold p-2 bg-[#deb887] hover:bg-[#efcfa4] self-center"
           onClick={() => {
-            setSearchTerm("Baking");
+            setSearchTerm("How to Bake");
           }}
           type="submit"
         >
@@ -72,7 +86,7 @@ export default function SearchBar({ onSearch }) {
         <button
           className="rounded-xl text-gray-800 font-bold p-2 bg-[#deb887] hover:bg-[#efcfa4] self-center"
           onClick={() => {
-            setSearchTerm("Soap Making");
+            setSearchTerm("How to make Soaps");
           }}
           type="submit"
         >
@@ -82,7 +96,7 @@ export default function SearchBar({ onSearch }) {
         <button
           className="rounded-xl text-gray-800 font-bold p-2 bg-[#deb887] hover:bg-[#efcfa4] self-center"
           onClick={() => {
-            setSearchTerm("Chemical Making");
+            setSearchTerm("How to make dish washing Chemicals");
           }}
           type="submit"
         >
