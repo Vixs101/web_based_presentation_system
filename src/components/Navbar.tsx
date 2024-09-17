@@ -1,6 +1,6 @@
 import { signOut } from "firebase/auth";
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { auth } from "../firebase/config";
 
 const links = [
@@ -57,10 +57,9 @@ const links = [
 ];
 
 // function to signout users
-function handleSignOut(navigate) {
+function handleSignOut() {
   signOut(auth)
     .then(() => {
-      navigate("/login");
       return null;
     })
     .catch((error) => {
@@ -83,7 +82,7 @@ function handleSignOut(navigate) {
 
 // main function
 
-export default function Navbar({ navigate }) {
+export default function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
@@ -141,7 +140,7 @@ export default function Navbar({ navigate }) {
           ))}
           <button
             onClick={() => {
-              handleSignOut(navigate);
+              handleSignOut();
             }}
             className="rounded-xl text-gray-800 font-bold p-2 bg-[#deb887] hover:bg-[#deb989] self-center"
           >

@@ -6,7 +6,6 @@ import { signOut } from "firebase/auth";
 function handleSignOut(navigate) {
   signOut(auth)
     .then(() => {
-      navigate("/login");
       return null;
     })
     .catch((error) => {
@@ -27,7 +26,7 @@ function handleSignOut(navigate) {
     });
 }
 
-function Sidebar({navigate}) {
+function Sidebar() {
   return (
     <div className="">
       <div className="hidden md:flex flex-col gap-5 h-full overflow-auto fixed md:w-1/4 lg:w-1/5 p-2 border-r-2 border-r-[#deb887] bg-gray-50 text-gray-800">
@@ -87,7 +86,7 @@ function Sidebar({navigate}) {
           </Link>
         </ul>
         <button
-          onClick={() => {handleSignOut(navigate)}}
+          onClick={() => {handleSignOut()}}
           className="rounded-xl text-gray-800 font-bold p-2 bg-[#deb887] hover:bg-[#efcfa4] lg:w-3/12 lg:ml-20 mt-5"
         >
           Logout

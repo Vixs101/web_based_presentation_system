@@ -7,9 +7,17 @@ import {
 } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
+type UserCredentials = {
+  email: string;
+  password: string;
+}
+
 function LoginPage() {
   const [loginType, setLoginType] = useState("login");
-  const [userCredentials, setUserCredentials] = useState({});
+  const [userCredentials, setUserCredentials] = useState<UserCredentials>({
+    email: "",
+    password: "",
+  });
   const [error, setError] = useState("");
   const [forgotPassword, setForgotPassword] = useState(false);
   const [isLoginIn, setIsLoginIn] = useState(false);
@@ -32,6 +40,8 @@ function LoginPage() {
     )
       .then((userCredential) => {
         const user = userCredential.user;
+        navigate("/");
+
       })
       .catch((error) => {
         setError(error.message);
@@ -51,10 +61,8 @@ function LoginPage() {
     )
       .then((userCredential) => {
         const user = userCredential.user;
+        navigate("/");
 
-        if (user) {
-          navigate("/");
-        }
       })
       .catch((error) => {
         setError(error.message);
