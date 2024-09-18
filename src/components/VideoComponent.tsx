@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import SearchBar from "./SearchBar";
+
 declare global {
   interface ImportMeta {
     env: {
@@ -20,7 +21,6 @@ function VideoComponent() {
   const apiKey = import.meta.env.VITE_APP_API_KEY;
   let baseUrl = `https://www.googleapis.com/youtube/v3/search?key=${apiKey}`;
 
-  // function to fetch videos
   const fetchVideos = async (searchTerm, pageToken = null) => {
     setError(null);
 
