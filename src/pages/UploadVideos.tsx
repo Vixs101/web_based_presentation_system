@@ -6,7 +6,8 @@ import {
   getDownloadURL,
   listAll,
 } from "firebase/storage";
-import { storage } from "../firebase/config";
+import { storage, firestore, auth } from "../firebase/config";
+import { collection, addDoc, getDocs } from "firebase/firestore";
 import { v4 } from "uuid";
 
 function UploadVideos() {
@@ -24,6 +25,7 @@ function UploadVideos() {
 
 
   const videoListRef = ref(storage, "videos/");
+  const videoCollectionRef = collection(firestore, "videos") //reference to firestore
 
   // handle the file selection procedure
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,10 +38,8 @@ function UploadVideos() {
   };
 
   // handle the uploading procedure
-  const handleUpload = () => {
-    if (videoUpload == null) return;
-
-    if(!videoTitle || !channelName) return;
+  const handleUpload = async () => {
+    if (videoUpload == null || !videoTitle || !channelName || !auth.currentUser) return;
 
     const videoRef = ref(storage,
       `videos/<span class="math-inline">\{videoTitle\}\-</span>{channelName}.${videoUpload.type.split("/")[1]}`);
@@ -47,16 +47,26 @@ function UploadVideos() {
      const metadata = {}
 
     try {
-      uploadBytes(videoRef, videoUpload, metadata).then((snapshot) => {
-        alert("video uploaded");
-        setVideoUpload(null);
-        setVideoTitle("");
-        setChannelName("");
+      //upload to firebase storage
+      const snapshot = await uploadBytes(videoRef, videoUpload);
+      alert("video uploaded");
 
-        getDownloadURL(snapshot.ref).then((url) => {
-          setVideoList((prev) => [...prev, url]);
-        });
-      });
+      //get download url
+      const url = await getDownloadURL(snapshot.ref);
+
+      // saving video reference to firestore
+      await addDoc(videoCollectionRef, {
+        url,
+        title: videoTitle,
+        channelName,
+      })
+
+      // update the local this.state.first
+      setVideoList((prev) => [...prev, {url, title: videoTitle, channelName}]);
+      setVideoUpload(null);
+      setVideoTitle("");
+      setChannelName("");
+
     } catch (error) {
       console.error(error);
     }
@@ -64,13 +74,12 @@ function UploadVideos() {
 
   //
   useEffect(() => {
-    listAll(videoListRef).then((response) => {
-      response.items.forEach((item) => {
-        getDownloadURL(item).then((url) => {
-          setVideoList((prev) => [...prev, url]);
-        });
-      });
-    });
+    const fetchVideos = async () => {
+      const data = await getDocs(videoCollectionRef);
+      setVideoList(data.docs.map((doc) => ({ ...doc.data() } as VideoInfo)));
+    };
+    
+    fetchVideos();
   }, []);
 
   return (
@@ -122,20 +131,19 @@ function UploadVideos() {
           </button>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-7 mt-5 md:gap-10 max-w-full ">
-          {videoList.map((url, index) => {
-            return (
-              <div className="flex flex-col gap-3 border bg-[#deb887] rounded-xl text-gray-800">
+          {videoList.map((video, index) => (
+              <div key={ index } className="flex flex-col gap-3 border bg-[#deb887] rounded-xl text-gray-800">
                 <iframe
-                  key={index}
-                  src={url}
+                  src={video.url}
                   allowFullScreen
                   className="w-full rounded-t-xl"
                 ></iframe>
                 <div className="flex flex-col gap-3 ml-3 mb-3 ">
+                  <h3>{ video.title }</h3>
+                  <p>{ video.channelName} </p>
                 </div>
               </div>
-            );
-          })}
+          ))}
         </div>
       </div>
     </>

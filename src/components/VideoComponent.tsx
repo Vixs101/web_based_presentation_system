@@ -33,7 +33,7 @@ function VideoComponent() {
           pageToken: pageToken,
         },
       });
-      console.log(response.data);
+      
       setVideos((prevVideos) => [...prevVideos, ...response.data.items]);
 
       setNextPageToken(response.data.nextPageToken);
@@ -99,9 +99,9 @@ function VideoComponent() {
         </div>
       ) : (
         <div className="self-center grid grid-cols-1 md:grid-cols-3 gap-7 md:gap-10 max-w-full">
-          {videos.map((video) => (
+          {videos.map((video, index) => (
             <div
-              key={video?.id?.videoId}
+              key={index}
               className="flex flex-col gap-3 border bg-[#deb887] rounded-xl text-gray-800"
             >
               {loadingVideos && (
