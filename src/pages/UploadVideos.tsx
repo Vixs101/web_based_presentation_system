@@ -7,7 +7,7 @@ import {
   listAll,
 } from "firebase/storage";
 import { storage, firestore, auth } from "../firebase/config";
-import { collection, addDoc, getDocs } from "firebase/firestore";
+import { collection, addDoc, getDocs, query, where } from "firebase/firestore";
 import { v4 } from "uuid";
 
 function UploadVideos() {
@@ -27,6 +27,19 @@ function UploadVideos() {
   const videoListRef = ref(storage, "videos/");
   const videoCollectionRef = collection(firestore, "videos") //reference to firestore
 
+  //
+  useEffect(() => {
+    const fetchVideos = async () => {
+      if (auth.currentUser) {
+        const videoQuery = query(videoCollectionRef, where("userId", "==", auth.currentUser.uid));
+        const data = await getDocs(videoQuery);
+
+        setVideoList(data.docs.map((doc) => ({ ...doc.data() } as VideoInfo)))
+      }
+    };
+
+    fetchVideos();
+  }, []);
   // handle the file selection procedure
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]; // Get the first file selected
@@ -41,10 +54,8 @@ function UploadVideos() {
   const handleUpload = async () => {
     if (videoUpload == null || !videoTitle || !channelName || !auth.currentUser) return;
 
-    const videoRef = ref(storage,
-      `videos/<span class="math-inline">\{videoTitle\}\-</span>{channelName}.${videoUpload.type.split("/")[1]}`);
 
-     const metadata = {}
+    const videoRef = ref(storage, `videos/${auth.currentUser.uid}/${videoTitle}-${channelName}.${videoUpload.type.split("/")[1]}`);
 
     try {
       //upload to firebase storage
@@ -59,6 +70,7 @@ function UploadVideos() {
         url,
         title: videoTitle,
         channelName,
+        userId: auth.currentUser.uid,
       })
 
       // update the local this.state.first
@@ -72,15 +84,7 @@ function UploadVideos() {
     }
   };
 
-  //
-  useEffect(() => {
-    const fetchVideos = async () => {
-      const data = await getDocs(videoCollectionRef);
-      setVideoList(data.docs.map((doc) => ({ ...doc.data() } as VideoInfo)));
-    };
-    
-    fetchVideos();
-  }, []);
+
 
   return (
     <>
@@ -139,8 +143,8 @@ function UploadVideos() {
                   className="w-full rounded-t-xl"
                 ></iframe>
                 <div className="flex flex-col gap-3 ml-3 mb-3 ">
-                  <h3>{ video.title }</h3>
-                  <p>{ video.channelName} </p>
+                  <h3 className="text-xl font-semibold text-gray-800">{ video.title }</h3>
+                  <p className="text-lg text-gray-800">{ video.channelName} </p>
                 </div>
               </div>
           ))}
