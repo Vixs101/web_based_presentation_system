@@ -102,7 +102,7 @@ function VideoComponent() {
           {videos.map((video, index) => (
             <div
               key={index}
-              className="flex flex-col gap-3 border bg-[#deb887] rounded-xl text-gray-800"
+              className="flex flex-col gap-3 border bg-[#deb887] rounded-lg text-gray-800 p-2"
             >
               {loadingVideos && (
                 <div className="flex justify-center items-center h-20 animate-pulse bg-black rounded-t-xl">
@@ -113,11 +113,12 @@ function VideoComponent() {
                 <iframe
                   src={`https://www.youtube.com/embed/${video?.id?.videoId}`}
                   allowFullScreen
-                  className="w-full rounded-t-xl"
+                  className="w-full rounded-t-xl bg-black"
                 ></iframe>
               )}
 
-              <div className="flex flex-col gap-3 ml-3 mb-3 ">
+              <div className="flex flex-col gap-3 mb-3 ">
+                <hr className="border-2 border-gray-20 w-full"/>
                 <h2 className="text-base font-extrabold">
                   Title: {video?.snippet?.title}
                 </h2>

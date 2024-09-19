@@ -60,8 +60,7 @@ function UploadVideos() {
     try {
       //upload to firebase storage
       const snapshot = await uploadBytes(videoRef, videoUpload);
-      alert("video uploaded");
-
+      alert("video uploaded! check back later to view it");
       //get download url
       const url = await getDownloadURL(snapshot.ref);
 
@@ -78,6 +77,7 @@ function UploadVideos() {
       setVideoUpload(null);
       setVideoTitle("");
       setChannelName("");
+
 
     } catch (error) {
       console.error(error);
@@ -136,14 +136,15 @@ function UploadVideos() {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-7 mt-5 md:gap-10 max-w-full ">
           {videoList.map((video, index) => (
-              <div key={ index } className="flex flex-col gap-3 border bg-[#deb887] rounded-xl text-gray-800">
+              <div key={ index } className="flex flex-col gap-3 border bg-[#deb887] rounded-xl text-gray-800 p-2">
                 <iframe
                   src={video.url}
                   allowFullScreen
-                  className="w-full rounded-t-xl"
+                  className="w-full rounded-t-xl bg-black"
                 ></iframe>
-                <div className="flex flex-col gap-3 ml-3 mb-3 ">
-                  <h3 className="text-xl font-semibold text-gray-800">{ video.title }</h3>
+                <div className="flex flex-col gap-3 mb-3">
+                  <hr className="border-2 border-gray-20 w-full"/>
+                  <h3 className="text-xl font-semibold text-gray-800 ">{ video.title }</h3>
                   <p className="text-lg text-gray-800">{ video.channelName} </p>
                 </div>
               </div>
